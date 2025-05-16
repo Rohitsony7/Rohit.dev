@@ -1,4 +1,3 @@
-
 import { CalendarCheck, MoreHorizontal, Briefcase } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { MovingBorder } from '../ui/moving-border';
@@ -147,7 +146,10 @@ function ExperienceItem({
               containerClassName="absolute inset-0"
               className="opacity-30"
               borderRadius="0.75rem"
-            />
+            >
+              {/* Empty div as child */}
+              <div />
+            </MovingBorder>
           )}
           
           <div className="flex flex-wrap gap-2 items-start justify-between mb-3">

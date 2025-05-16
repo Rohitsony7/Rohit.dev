@@ -6,10 +6,11 @@ interface ShimmerButtonProps {
   children?: React.ReactNode;
   className?: string;
   onClick?: () => void;
+  disabled?: boolean;
 }
 
 export const ShimmerButton = React.forwardRef<HTMLButtonElement, ShimmerButtonProps>(
-  ({ className, children, onClick }, ref) => {
+  ({ className, children, onClick, disabled }, ref) => {
     return (
       <button
         className={cn(
@@ -22,6 +23,7 @@ export const ShimmerButton = React.forwardRef<HTMLButtonElement, ShimmerButtonPr
         )}
         ref={ref}
         onClick={onClick}
+        disabled={disabled}
       >
         <span className="relative z-10">{children}</span>
         <span className="absolute inset-0 z-0 overflow-hidden rounded-md">
