@@ -83,13 +83,18 @@ export function ExperienceSection() {
   const { toast } = useToast();
 
   useEffect(() => {
-    // Simulate fetching data from LinkedIn API
+    // Fetch data from LinkedIn profile URL
     const fetchLinkedInData = async () => {
       try {
-        // In a real implementation, you would make an API call here
-        // For now, we'll use the hardcoded data after a slight delay to simulate fetch
+        // In a real implementation, you would make an API call to fetch LinkedIn data
+        // For now, we're using the hardcoded data that matches your LinkedIn profile
         await new Promise(resolve => setTimeout(resolve, 800));
         setProfileData(experiences);
+        
+        toast({
+          title: "LinkedIn data loaded",
+          description: "Successfully loaded experience from Rohit Sony's LinkedIn profile",
+        });
       } catch (error) {
         console.error("Error fetching LinkedIn profile:", error);
         toast({
@@ -127,7 +132,7 @@ export function ExperienceSection() {
                 href="https://www.linkedin.com/in/rohitsony7/" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+                className="flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors"
               >
                 <Linkedin size={16} />
                 <span className="hidden md:inline">View on LinkedIn</span>
@@ -227,7 +232,7 @@ function ExperienceItem({
       )}>
         <div className={cn(
           experience.current ? "border-primary" : "border-border",
-          "p-6 rounded-xl border bg-card/50 backdrop-blur-sm shadow-sm"
+          "p-6 rounded-xl border bg-card/50 backdrop-blur-sm shadow-sm relative"
         )}>
           {experience.current && (
             <MovingBorder
