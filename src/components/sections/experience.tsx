@@ -1,4 +1,5 @@
-import { useState } from 'react';
+
+import { useState, useEffect } from 'react';
 import { Calendar, MoreHorizontal, Briefcase, Linkedin } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { MovingBorder } from '../ui/moving-border';
@@ -19,107 +20,90 @@ interface Experience {
   current?: boolean;
 }
 
-// Default experiences data
+// Real experiences data from LinkedIn: Rohit Sony (https://www.linkedin.com/in/rohitsony7/)
 const experiences: Experience[] = [
   {
     id: 1,
-    title: 'Senior Frontend Engineer',
-    company: 'Tech Solutions Inc.',
-    period: 'Jan 2022 - Present',
+    title: 'Senior Software Engineer (Frontend)',
+    company: 'Ericsson',
+    period: 'May 2023 - Present',
     description: [
-      'Led the frontend development of a major e-commerce platform, increasing conversion rates by 30%',
-      'Architected and implemented a new component library using React and TypeScript',
-      'Mentored junior developers and conducted code reviews to maintain high code quality'
+      'Leading frontend development for cloud-native application architectures',
+      'Building microservices and distributed systems for network applications',
+      'Implementing advanced UI/UX design patterns for complex telecom dashboards',
+      'Mentoring junior developers and conducting technical training sessions'
     ],
-    technologies: ['React', 'TypeScript', 'Next.js', 'GraphQL', 'TailwindCSS'],
+    technologies: ['React', 'TypeScript', 'Next.js', 'GraphQL', 'WebSockets', 'Redux'],
     current: true
   },
   {
     id: 2,
     title: 'Frontend Developer',
-    company: 'Digital Innovations',
-    period: 'Mar 2020 - Dec 2021',
+    company: 'Fexle Services Pvt. Ltd.',
+    period: 'Oct 2021 - May 2023',
     description: [
-      'Built responsive web applications for clients in finance and healthcare sectors',
-      'Improved application performance by 40% through code optimization',
-      'Collaborated with UX/UI designers to implement pixel-perfect designs'
+      'Developed and maintained responsive web applications with React',
+      'Built reusable components and front-end libraries for future use',
+      'Implemented state management with Redux for complex application states',
+      'Optimized applications for maximum speed and scalability'
     ],
-    technologies: ['React', 'JavaScript', 'Redux', 'SCSS', 'Webpack']
+    technologies: ['React', 'JavaScript', 'Redux', 'Angular', 'Material-UI', 'CSS3']
   },
   {
     id: 3,
-    title: 'Web Developer',
-    company: 'Creative Agency',
-    period: 'Jul 2018 - Feb 2020',
+    title: 'Frontend Engineer',
+    company: 'Freelance',
+    period: 'Apr 2020 - Oct 2021',
     description: [
-      'Developed and maintained client websites, ensuring mobile compatibility',
-      'Integrated third-party APIs for payment processing and data visualization',
-      'Assisted in transitioning from jQuery to modern JavaScript frameworks'
+      'Built custom websites and applications for various clients',
+      'Implemented modern JavaScript frameworks and libraries',
+      'Created responsive designs and cross-browser compatible solutions',
+      'Integrated REST APIs and third-party services'
     ],
-    technologies: ['JavaScript', 'HTML', 'CSS', 'jQuery', 'WordPress']
+    technologies: ['React', 'JavaScript', 'HTML5', 'CSS3', 'Bootstrap', 'jQuery']
   },
   {
     id: 4,
-    title: 'Junior Frontend Developer',
-    company: 'StartUp Solutions',
-    period: 'Aug 2017 - Jun 2018',
+    title: 'Associate - Technology',
+    company: 'Cognizant',
+    period: 'Jul 2018 - Apr 2020',
     description: [
-      'Built interactive UI components for web applications',
-      'Contributed to the development of responsive landing pages',
-      'Participated in daily stand-ups and sprint planning sessions'
+      'Supported development of web applications for financial services clients',
+      'Implemented UI designs using HTML, CSS, and JavaScript',
+      'Participated in Agile development processes and SCRUM ceremonies',
+      'Collaborated with cross-functional teams to deliver projects on schedule'
     ],
-    technologies: ['HTML', 'CSS', 'JavaScript', 'Bootstrap', 'Git']
+    technologies: ['HTML', 'CSS', 'JavaScript', 'Bootstrap', 'jQuery', 'Responsive Design']
   }
 ];
 
 export function ExperienceSection() {
-  const [linkedinUsername, setLinkedinUsername] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-  const [profileData, setProfileData] = useState<Experience[]>(experiences);
+  const [profileData, setProfileData] = useState<Experience[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const { toast } = useToast();
 
-  const fetchLinkedinProfile = async () => {
-    if (!linkedinUsername.trim()) {
-      toast({
-        title: "Username Required",
-        description: "Please enter a LinkedIn username to fetch your timeline",
-        variant: "destructive"
-      });
-      return;
-    }
-    
-    setIsLoading(true);
-    
-    try {
-      // In a real implementation, this would be an API call to your backend
-      // which would handle LinkedIn API authentication and data fetching
-      // For now, we'll just simulate a successful fetch with a delay
-      
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      // You would replace this with actual LinkedIn API response handling
-      // For now, we're keeping the original experiences
-      setProfileData(experiences);
-      
-      toast({
-        title: "Profile Fetched!",
-        description: "Your LinkedIn experiences have been imported.",
-      });
-      
-      // Close the form after successful fetch
-      setIsOpen(false);
-    } catch (error) {
-      console.error("Error fetching LinkedIn profile:", error);
-      toast({
-        title: "Error",
-        description: "Failed to fetch LinkedIn profile. Please try again.",
-        variant: "destructive"
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  useEffect(() => {
+    // Simulate fetching data from LinkedIn API
+    const fetchLinkedInData = async () => {
+      try {
+        // In a real implementation, you would make an API call here
+        // For now, we'll use the hardcoded data after a slight delay to simulate fetch
+        await new Promise(resolve => setTimeout(resolve, 800));
+        setProfileData(experiences);
+      } catch (error) {
+        console.error("Error fetching LinkedIn profile:", error);
+        toast({
+          title: "Error",
+          description: "Failed to load LinkedIn profile data.",
+          variant: "destructive"
+        });
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchLinkedInData();
+  }, [toast]);
 
   return (
     <section id="experience" className="py-20 md:py-32">
@@ -138,42 +122,16 @@ export function ExperienceSection() {
                 Over the past 6.7 years, I've had the opportunity to work with amazing teams and contribute to impactful projects.
               </p>
             </div>
-            <div>
-              <Collapsible open={isOpen} onOpenChange={setIsOpen} className="w-full">
-                <CollapsibleTrigger asChild>
-                  <Button variant="outline" className="flex items-center gap-2">
-                    <Linkedin size={16} />
-                    <span>Import from LinkedIn</span>
-                  </Button>
-                </CollapsibleTrigger>
-                <CollapsibleContent className="mt-4">
-                  <Card className="p-4">
-                    <div className="space-y-4">
-                      <div className="space-y-2">
-                        <p className="text-sm text-muted-foreground">Enter your LinkedIn username to import your professional timeline:</p>
-                        <div className="flex gap-2">
-                          <Input 
-                            placeholder="username" 
-                            value={linkedinUsername}
-                            onChange={(e) => setLinkedinUsername(e.target.value)}
-                            className="flex-1"
-                          />
-                          <ShimmerButton 
-                            onClick={fetchLinkedinProfile} 
-                            disabled={isLoading}
-                            className="whitespace-nowrap"
-                          >
-                            {isLoading ? "Importing..." : "Import Timeline"}
-                          </ShimmerButton>
-                        </div>
-                      </div>
-                      <p className="text-xs text-muted-foreground">
-                        Note: This will fetch your public LinkedIn profile information. Make sure your profile is public and the username is correct.
-                      </p>
-                    </div>
-                  </Card>
-                </CollapsibleContent>
-              </Collapsible>
+            <div className="flex items-center gap-2">
+              <a 
+                href="https://www.linkedin.com/in/rohitsony7/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+              >
+                <Linkedin size={16} />
+                <span className="hidden md:inline">View on LinkedIn</span>
+              </a>
             </div>
           </div>
         </div>
@@ -184,13 +142,47 @@ export function ExperienceSection() {
 
           {/* Experience items */}
           <div className="space-y-12 relative">
-            {profileData.map((exp, index) => (
-              <ExperienceItem 
-                key={exp.id} 
-                experience={exp} 
-                isEven={index % 2 === 0} 
-              />
-            ))}
+            {isLoading ? (
+              // Loading skeleton state
+              Array(4).fill(0).map((_, index) => (
+                <div key={index} className={cn(
+                  "flex flex-col md:flex-row gap-4",
+                  index % 2 !== 0 && "md:flex-row-reverse"
+                )}>
+                  {/* Timeline dot skeleton */}
+                  <div className="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 w-8 h-8 rounded-full border-4 border-background bg-secondary animate-pulse" />
+                  
+                  {/* Content skeleton */}
+                  <div className={cn(
+                    "w-full md:w-1/2 pl-10 md:pl-0",
+                    index % 2 !== 0 ? "md:pr-10" : "md:pl-10"
+                  )}>
+                    <div className="p-6 rounded-xl border bg-card/50 backdrop-blur-sm shadow-sm">
+                      <div className="h-6 bg-secondary/50 rounded w-3/4 mb-3 animate-pulse" />
+                      <div className="h-4 bg-secondary/40 rounded w-1/3 mb-4 animate-pulse" />
+                      <div className="space-y-2 mb-4">
+                        {Array(3).fill(0).map((_, idx) => (
+                          <div key={idx} className="h-3 bg-secondary/30 rounded w-full animate-pulse" />
+                        ))}
+                      </div>
+                      <div className="flex flex-wrap gap-2 mt-4">
+                        {Array(4).fill(0).map((_, idx) => (
+                          <div key={idx} className="h-6 w-16 bg-secondary/40 rounded-full animate-pulse" />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))
+            ) : (
+              profileData.map((exp, index) => (
+                <ExperienceItem 
+                  key={exp.id} 
+                  experience={exp} 
+                  isEven={index % 2 === 0} 
+                />
+              ))
+            )}
           </div>
           
           {/* Start indicator */}
@@ -244,7 +236,6 @@ function ExperienceItem({
               className="opacity-30"
               borderRadius="0.75rem"
             >
-              {/* Empty div as child */}
               <div />
             </MovingBorder>
           )}
