@@ -19,27 +19,6 @@ export function ExperienceSection() {
   return (
     <section id="experience" className="py-20 md:py-32">
       <div className="container px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
-        <div className="mb-12 md:mb-16">
-          <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
-            <Briefcase size={16} />
-            <span>Resume</span>
-          </div>
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-gradient mb-4">
-            Download My Resume
-          </h2>
-          <p className="text-muted-foreground max-w-2xl mb-6">
-            Click the button below to download my resume and learn more about my
-            professional journey.
-          </p>
-          <a
-            href="/resume.pdf" // Path to your resume in the public folder
-            download="Rohit_Sony_Resume.pdf" // Suggested download filename
-            className="inline-block px-6 py-3 text-sm font-medium text-white bg-primary rounded-md shadow hover:bg-primary/80 transition-colors"
-          >
-            Download Resume
-          </a>
-        </div>
-
         <div className="relative">
           {/* Timeline line */}
           <div className="absolute left-0 md:left-1/2 top-0 h-full w-[1px] bg-border transform md:-translate-x-1/2" />
