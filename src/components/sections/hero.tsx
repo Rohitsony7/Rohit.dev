@@ -2,7 +2,7 @@
 import { Spotlight } from "../ui/spotlight";
 import { ShimmerButton } from "../ui/shimmer-button";
 import { Meteors } from "../ui/meteors";
-import { cn } from "@/lib/utils";
+import { resumeData } from "../../utils/resume-data";
 
 export function HeroSection() {
   return (
@@ -15,7 +15,7 @@ export function HeroSection() {
           </p>
 
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-gradient mb-6 animate-fade-in">
-            Rohit Sony
+            {resumeData.name}
           </h1>
 
           <div className="h-16 flex items-center mb-6">
@@ -23,13 +23,11 @@ export function HeroSection() {
           </div>
 
           <p className="max-w-2xl text-base md:text-lg text-muted-foreground mb-8 animate-fade-in">
-            With over 6.7 years of experience crafting exceptional web experiences. 
-            I specialize in building modern, performant, and accessible applications 
-            that users love.
+            {resumeData.bio}
           </p>
 
           <div className="flex flex-wrap gap-4 justify-center animate-fade-in">
-            <ShimmerButton onClick={() => window.open("https://github.com/Rohitsony7", "_blank")}>
+            <ShimmerButton onClick={() => window.open(resumeData.github, "_blank")}>
               View GitHub
             </ShimmerButton>
             <ShimmerButton 
@@ -56,7 +54,7 @@ export function HeroSection() {
 function TypewriterEffect() {
   return (
     <div className="text-xl md:text-2xl lg:text-3xl font-bold text-gradient">
-      <span className="text-primary">Frontend Engineer</span>
+      <span className="text-primary">{resumeData.title}</span>
     </div>
   );
 }

@@ -1,48 +1,19 @@
 
 import { Code } from 'lucide-react';
 import { CardHover } from '../ui/card-hover';
+import { resumeData } from '../../utils/resume-data';
 
-interface Skill {
+interface SkillCategory {
   name: string;
-  level: number;
-  category: string;
+  skills: string[];
 }
 
-const skills: Skill[] = [
-  // Frontend Core
-  { name: 'HTML5', level: 95, category: 'Frontend' },
-  { name: 'CSS3', level: 90, category: 'Frontend' },
-  { name: 'JavaScript', level: 95, category: 'Frontend' },
-  { name: 'TypeScript', level: 90, category: 'Frontend' },
-  { name: 'React.js', level: 95, category: 'Frontend' },
-  
-  // Frontend Frameworks & Libraries
-  { name: 'Next.js', level: 85, category: 'Framework' },
-  { name: 'Redux', level: 90, category: 'State Management' },
-  { name: 'React Query', level: 80, category: 'Data Fetching' },
-  { name: 'TailwindCSS', level: 92, category: 'Styling' },
-  { name: 'Styled Components', level: 85, category: 'Styling' },
-  
-  // Testing
-  { name: 'Jest', level: 80, category: 'Testing' },
-  { name: 'React Testing Library', level: 78, category: 'Testing' },
-  
-  // Build Tools & Others
-  { name: 'Webpack', level: 75, category: 'Build Tools' },
-  { name: 'Vite', level: 85, category: 'Build Tools' },
-  { name: 'Git', level: 88, category: 'Version Control' },
-  { name: 'GraphQL', level: 75, category: 'API' },
-];
-
 export function SkillsSection() {
-  // Group skills by category
-  const groupedSkills = skills.reduce<Record<string, Skill[]>>((acc, skill) => {
-    if (!acc[skill.category]) {
-      acc[skill.category] = [];
-    }
-    acc[skill.category].push(skill);
-    return acc;
-  }, {});
+  // Transform skills_categories from resumeData into an array
+  const skillCategories: SkillCategory[] = Object.entries(resumeData.skills_categories || {}).map(([key, value]) => ({
+    name: key.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '),
+    skills: value as string[]
+  }));
 
   return (
     <section id="skills" className="py-20 md:py-32 relative overflow-hidden">
@@ -57,22 +28,25 @@ export function SkillsSection() {
             Technical Expertise
           </h2>
           <p className="text-muted-foreground max-w-2xl">
-            With 6.7 years of experience, I've mastered a diverse range of technologies and tools to build exceptional web experiences.
+            With {resumeData.bio.split(' ')[2]} years of experience, I've mastered a diverse range of technologies and tools to build exceptional web experiences.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {Object.entries(groupedSkills).map(([category, categorySkills]) => (
+          {skillCategories.map((category) => (
             <CardHover
-              key={category}
+              key={category.name}
               className="rounded-xl transition-all duration-300"
               hoverClassName="scale-[1.02] shadow-lg"
             >
               <div className="p-6 rounded-xl border bg-card h-full">
-                <h3 className="text-xl font-semibold mb-4">{category}</h3>
+                <h3 className="text-xl font-semibold mb-4">{category.name}</h3>
                 <div className="space-y-4">
-                  {categorySkills.map((skill) => (
-                    <SkillBar key={skill.name} skill={skill} />
+                  {category.skills.map((skill) => (
+                    <div key={skill} className="flex items-center gap-2">
+                      <span className="text-primary">•</span>
+                      <span className="text-sm">{skill}</span>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -81,22 +55,5 @@ export function SkillsSection() {
         </div>
       </div>
     </section>
-  );
-}
-
-function SkillBar({ skill }: { skill: Skill }) {
-  return (
-    <div>
-      <div className="flex items-center justify-between mb-1">
-        <span className="text-sm font-medium">{skill.name}</span>
-        <span className="text-xs font-medium text-muted-foreground">{skill.level}%</span>
-      </div>
-      <div className="w-full bg-secondary rounded-full h-2">
-        <div
-          className="bg-primary h-2 rounded-full"
-          style={{ width: `${skill.level}%` }}
-        />
-      </div>
-    </div>
   );
 }
