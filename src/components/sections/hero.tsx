@@ -3,8 +3,13 @@ import { Spotlight } from "../ui/spotlight";
 import { ShimmerButton } from "../ui/shimmer-button";
 import { Meteors } from "../ui/meteors";
 import { resumeData } from "../../utils/resume-data";
+import { ResumeDialog } from "./ResumeDialog";
+import { useState } from "react";
+import { Download } from "lucide-react";
 
 export function HeroSection() {
+  const [showResumeDialog, setShowResumeDialog] = useState(false);
+
   return (
     <section className="relative min-h-screen flex items-center pb-20 overflow-hidden">
       <Meteors number={15} />
@@ -36,6 +41,13 @@ export function HeroSection() {
             >
               Contact Me
             </ShimmerButton>
+            <ShimmerButton 
+              onClick={() => setShowResumeDialog(true)}
+              className="flex items-center gap-2"
+            >
+              <Download size={16} />
+              View Resume
+            </ShimmerButton>
           </div>
 
           <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
@@ -47,6 +59,9 @@ export function HeroSection() {
           </div>
         </div>
       </Spotlight>
+
+      {/* Resume Dialog */}
+      {showResumeDialog && <ResumeDialog open={showResumeDialog} onOpenChange={setShowResumeDialog} />}
     </section>
   );
 }

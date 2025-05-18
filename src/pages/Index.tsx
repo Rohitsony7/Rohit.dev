@@ -1,3 +1,4 @@
+
 import { AboutSection } from "@/components/sections/about";
 import { ContactSection } from "@/components/sections/contact";
 import { EducationSection } from "@/components/sections/education";
@@ -9,7 +10,6 @@ import { ProjectsSection } from "@/components/sections/projects";
 import { SkillsSection } from "@/components/sections/skills";
 import { TestimonialsSection } from "@/components/sections/testimonials";
 import { GridPattern } from "@/components/ui/grid-pattern";
-import { ViewPDFSection } from "@/components/sections/ViewPDFSection";
 
 const Index = () => {
   return (
@@ -23,7 +23,6 @@ const Index = () => {
       <EducationSection />
       <ProjectsSection />
       <TestimonialsSection />
-      <ViewPDFSection />
       <ContactSection />
       <Footer />
     </div>
