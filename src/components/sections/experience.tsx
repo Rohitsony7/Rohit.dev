@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Calendar, MoreHorizontal, Briefcase, Linkedin } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { MovingBorder } from "../ui/moving-border";
-import { resumeData as experiences, resumeData } from "../../utils/resume-data"; // Adjusted import path
+import { resumeData } from "@/utils/resume-data";
 
 interface Experience {
   id: number;
@@ -19,10 +19,24 @@ export function ExperienceSection() {
   return (
     <section id="experience" className="py-20 md:py-32">
       <div className="container px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+        <div className="mb-12 md:mb-16">
+          <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
+            <Briefcase size={16} />
+            <span>Work Experience</span>
+          </div>
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-gradient mb-4">
+            My Professional Journey
+          </h2>
+          <p className="text-muted-foreground max-w-2xl">
+            Over the past {resumeData.totalExperience}, I've had the opportunity
+            to work with amazing teams and contribute to impactful projects.
+          </p>
+        </div>
         <div className="relative">
           {/* Timeline line */}
-          <div className="absolute left-0 md:left-1/2 top-0 h-full w-[1px] bg-border transform md:-translate-x-1/2" />
-
+          <div className="absolute left-0 md:left-1/2 top-0 h-full transform md:-translate-x-1/2 my-8 px-4">
+            <div className="w-[1px] h-full bg-border mx-auto" />
+          </div>
           {/* Experience items */}
           <div className="space-y-12 relative">
             {resumeData.experience.map((exp, index) => (
@@ -33,7 +47,6 @@ export function ExperienceSection() {
               />
             ))}
           </div>
-
           {/* Start indicator */}
           <div className="absolute bottom-0 left-0 md:left-1/2 transform md:-translate-x-1/2 flex flex-col items-center">
             <div className="w-3 h-3 rounded-full bg-primary" />
@@ -55,7 +68,7 @@ function ExperienceItem({
   return (
     <div
       className={cn(
-        "flex flex-col md:flex-row gap-4",
+        "flex flex-col md:flex-row gap-4 m-4",
         !isEven && "md:flex-row-reverse"
       )}
     >
@@ -129,24 +142,5 @@ function ExperienceItem({
         </div>
       </div>
     </div>
-  );
-}
-
-export function ResumeSection() {
-  return (
-    <section id="resume" className="py-20">
-      <div className="container mx-auto">
-        <h2 className="text-3xl font-bold mb-4">{resumeData.name}</h2>
-        <p className="text-muted-foreground mb-6">{resumeData.bio}</p>
-        <a
-          href={resumeData.resumeLink} // Path to the resume file
-          target="_blank" // Opens the resume in a new tab
-          rel="noopener noreferrer" // Security best practice
-          className="px-6 py-3 bg-primary text-white rounded-md shadow hover:bg-primary/80 transition-colors"
-        >
-          View Resume
-        </a>
-      </div>
-    </section>
   );
 }

@@ -4,6 +4,7 @@ import { formatPeriod } from "./format-period";
 
 // Calculate total experience once and reuse it
 const totalExperience = calculateTotalExperience("2019-01-01");
+export { totalExperience };
 
 export const resumeData = {
   name: "Rohit Soni",
@@ -53,7 +54,7 @@ export const resumeData = {
         "RxJs",
         "Docker",
       ],
-      current: true,
+      current: false,
     },
     {
       id: 2,
@@ -76,7 +77,7 @@ export const resumeData = {
         "JavaScript",
         "Data Structures",
       ],
-      current: true,
+      current: false,
     },
     {
       id: 3,
