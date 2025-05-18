@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Download, Printer } from "lucide-react";
 import { MutedButton } from "../ui/muted-button";
 import { resumeData } from "../../utils/resume-data";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface ResumeDialogProps {
   open: boolean;
@@ -59,16 +60,18 @@ export function ResumeDialog({ open, onOpenChange }: ResumeDialogProps) {
           </div>
         </DialogHeader>
         
-        <div className="flex-1 border rounded-lg shadow-md overflow-hidden mt-4" style={{ height: "70vh" }}>
-          <Worker
-            workerUrl={`https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js`}
-          >
-            <Viewer
-              fileUrl={resumePath}
-              plugins={[defaultLayoutPluginInstance]}
-            />
-          </Worker>
-        </div>
+        <ScrollArea className="flex-1 mt-4">
+          <div className="border rounded-lg shadow-md overflow-hidden" style={{ minHeight: "70vh" }}>
+            <Worker
+              workerUrl={`https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js`}
+            >
+              <Viewer
+                fileUrl={resumePath}
+                plugins={[defaultLayoutPluginInstance]}
+              />
+            </Worker>
+          </div>
+        </ScrollArea>
       </DialogContent>
     </Dialog>
   );
