@@ -1,4 +1,3 @@
-
 import { TextSpotlight } from "../ui/text-spotlight";
 import { GridPattern } from "../ui/grid-pattern";
 import { MutedButton } from "../ui/muted-button";
@@ -11,31 +10,31 @@ export function AboutSection() {
   const aboutData = {
     name: resumeData.name,
     title: resumeData.title,
-    experienceYears: resumeData.bio.split(' ')[2] || "6",
+    experienceYears: resumeData.totalExperience,
     summary: [resumeData.bio],
     skills: resumeData.skills,
     stats: [
       {
-        title: resumeData.bio.split(' ')[2] + "+",
+        title: resumeData.totalExperience,
         description: "Years of Experience",
-        bgClass: "from-blue-500/20 to-cyan-400/20"
+        bgClass: "from-blue-500/20 to-cyan-400/20",
       },
       {
         title: "4+",
         description: "Companies Worked With",
-        bgClass: "from-purple-500/20 to-pink-500/20"
+        bgClass: "from-purple-500/20 to-pink-500/20",
       },
       {
         title: "10+",
         description: "Projects Completed",
-        bgClass: "from-amber-400/20 to-orange-500/20"
+        bgClass: "from-amber-400/20 to-orange-500/20",
       },
       {
         title: "2",
         description: "Certifications",
-        bgClass: "from-green-400/20 to-emerald-500/20"
-      }
-    ]
+        bgClass: "from-green-400/20 to-emerald-500/20",
+      },
+    ],
   };
 
   return (
@@ -50,22 +49,34 @@ export function AboutSection() {
                 <User size={16} />
                 <span>About Me</span>
               </div>
-              
+
               <TextSpotlight className="relative">
                 <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-gradient mb-4">
-                  {aboutData?.title} with {aboutData?.experienceYears} years of experience
+                  {aboutData?.title} with {aboutData?.experienceYears} years of
+                  experience
                 </h2>
               </TextSpotlight>
-              
+
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
                   <CalendarIcon size={16} />
-                  <span>Since {Number(new Date().getFullYear()) - Number(aboutData.experienceYears)}</span>
+                  <span>
+                    Since{" "}
+                    {
+                      resumeData.experience[
+                        resumeData.experience.length - 1
+                      ].period.split(" - ")[0]
+                    }
+                    <span className="hidden md:inline">
+                      {" "}
+                      - {aboutData?.experienceYears}
+                    </span>
+                  </span>
                 </div>
-                
-                <a 
+
+                <a
                   href={resumeData.linkedin}
-                  target="_blank" 
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-sm text-primary hover:text-primary/80 transition-colors"
                 >
@@ -74,7 +85,7 @@ export function AboutSection() {
                 </a>
               </div>
             </div>
-            
+
             <div className="relative p-6 rounded-xl bg-card/50 border shadow-sm">
               <Meteors number={3} />
               {aboutData?.summary.map((paragraph, index) => (
@@ -82,7 +93,7 @@ export function AboutSection() {
                   {paragraph}
                 </p>
               ))}
-              
+
               <div className="flex flex-wrap gap-2 mt-6">
                 {aboutData?.skills.slice(0, 8).map((skill) => (
                   <MutedButton key={skill}>{skill}</MutedButton>
@@ -90,7 +101,7 @@ export function AboutSection() {
               </div>
             </div>
           </div>
-          
+
           <div className="lg:w-3/5 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
             {aboutData?.stats.map((stat, index) => (
               <StatCard
@@ -107,21 +118,23 @@ export function AboutSection() {
   );
 }
 
-function StatCard({ 
-  title, 
-  description, 
-  bgClass 
-}: { 
-  title: string; 
+function StatCard({
+  title,
+  description,
+  bgClass,
+}: {
+  title: string;
   description: string;
   bgClass: string;
 }) {
   return (
-    <div className={cn(
-      "p-6 rounded-xl border shadow-sm",
-      "bg-gradient-to-br",
-      bgClass
-    )}>
+    <div
+      className={cn(
+        "p-6 rounded-xl border shadow-sm",
+        "bg-gradient-to-br",
+        bgClass
+      )}
+    >
       <h3 className="text-3xl md:text-4xl font-bold mb-2">{title}</h3>
       <p className="text-muted-foreground">{description}</p>
     </div>
