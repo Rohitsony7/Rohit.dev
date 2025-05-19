@@ -46,7 +46,7 @@ export function ResumeDialog({ open, onOpenChange }: ResumeDialogProps) {
 
   return (
     <>
-      {/* Backdrop overlay */}
+      {/* Backdrop overlay with Aceternity-style blur effect */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -55,7 +55,7 @@ export function ResumeDialog({ open, onOpenChange }: ResumeDialogProps) {
         className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50"
       />
       
-      {/* Dialog content */}
+      {/* Dialog content with Aceternity-style animations and design */}
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -67,33 +67,45 @@ export function ResumeDialog({ open, onOpenChange }: ResumeDialogProps) {
         }}
         className="fixed left-[50%] top-[50%] z-50 w-[90vw] max-w-4xl max-h-[90vh] flex flex-col translate-x-[-50%] translate-y-[-50%] bg-background border rounded-xl shadow-xl overflow-hidden"
       >
-        {/* Header */}
-        <div className="flex flex-col space-y-1.5 p-6 border-b">
+        {/* Header with Aceternity-style gradient border */}
+        <div className="flex flex-col space-y-1.5 p-6 border-b bg-gradient-to-b from-background to-background/80">
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-semibold leading-none tracking-tight">Resume - {resumeData.name}</h2>
-            <button 
-              onClick={() => onOpenChange(false)} 
-              className="rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+            <h2 className="text-lg font-semibold leading-none tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-600">Resume - {resumeData.name}</h2>
+            <motion.button 
+              onClick={() => onOpenChange(false)}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              className="rounded-full w-8 h-8 flex items-center justify-center bg-background/10 hover:bg-background/20 transition-colors"
             >
               <X className="h-4 w-4" />
               <span className="sr-only">Close</span>
-            </button>
+            </motion.button>
           </div>
           <div className="flex items-center justify-end gap-2 pt-2">
-            <MutedButton onClick={handlePrint} className="flex items-center gap-2">
-              <Printer size={16} />
-              Print
-            </MutedButton>
-            <Button onClick={handleDownload} className="flex items-center gap-2">
-              <Download size={16} />
-              Download
-            </Button>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <MutedButton onClick={handlePrint} className="flex items-center gap-2 hover:bg-gray-100/10 transition-colors">
+                <Printer size={16} />
+                Print
+              </MutedButton>
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button onClick={handleDownload} className="flex items-center gap-2 bg-primary hover:bg-primary/90">
+                <Download size={16} />
+                Download
+              </Button>
+            </motion.div>
           </div>
         </div>
         
-        {/* Scrollable content */}
+        {/* Scrollable content with Aceternity styling */}
         <div className="flex-1 p-4 overflow-auto">
-          <div className="border rounded-lg shadow-md overflow-hidden" style={{ minHeight: "70vh" }}>
+          <motion.div 
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="border rounded-lg shadow-xl overflow-hidden bg-white/5 backdrop-blur-sm"
+            style={{ minHeight: "70vh" }}
+          >
             <Worker
               workerUrl={`https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js`}
             >
@@ -102,7 +114,7 @@ export function ResumeDialog({ open, onOpenChange }: ResumeDialogProps) {
                 plugins={[defaultLayoutPluginInstance]}
               />
             </Worker>
-          </div>
+          </motion.div>
         </div>
       </motion.div>
     </>
