@@ -73,8 +73,8 @@ export function ContactSection() {
                 <ContactInfo
                   icon={<Mail className="h-5 w-5 text-muted-foreground" />}
                   title="Email"
-                  value="Rohit.soni.721@gmail.com"
-                  href="mailto:Rohit.soni.721@gmail.com"
+                  value="Rsony.721@gmail.com"
+                  href="mailto:Rsony.721@gmail.com"
                 />
 
                 <div className="flex gap-4">
