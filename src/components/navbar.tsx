@@ -1,5 +1,6 @@
 
 import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { ThemeToggle } from "./theme-toggle";
 import { cn } from "@/lib/utils";
 import { Menu, X } from "lucide-react";
@@ -41,15 +42,28 @@ export function Navbar() {
       )}
     >
       <div className="container flex items-center justify-between">
-        <a href="#" className="text-2xl font-bold tracking-tight text-gradient">
+        <motion.a 
+          href="#" 
+          className="text-2xl font-bold tracking-tight text-gradient"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
           Rohit.dev
-        </a>
+        </motion.a>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-6">
           <ul className="flex items-center gap-6">
-            {navLinks.map((link) => (
-              <li key={link.href}>
+            {navLinks.map((link, index) => (
+              <motion.li 
+                key={link.href}
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: 0.1 * index }}
+              >
                 <a
                   href={link.href}
                   className="text-sm font-medium relative text-foreground/80 hover:text-foreground transition-colors
@@ -59,7 +73,7 @@ export function Navbar() {
                 >
                   {link.title}
                 </a>
-              </li>
+              </motion.li>
             ))}
           </ul>
           <ThemeToggle />
@@ -74,35 +88,66 @@ export function Navbar() {
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle menu"
           >
-            {mobileMenuOpen ? (
-              <X className="h-6 w-6" />
-            ) : (
-              <Menu className="h-6 w-6" />
-            )}
+            <AnimatePresence initial={false} mode="wait">
+              {mobileMenuOpen ? (
+                <motion.div
+                  key="close"
+                  initial={{ rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 90, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <X className="h-6 w-6" />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="menu"
+                  initial={{ rotate: 90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: -90, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Menu className="h-6 w-6" />
+                </motion.div>
+              )}
+            </AnimatePresence>
           </Button>
         </div>
       </div>
 
       {/* Mobile Navigation */}
-      {mobileMenuOpen && (
-        <div className="fixed inset-0 top-[65px] z-50 bg-background animate-fade-in md:hidden">
-          <nav className="container py-8">
-            <ul className="flex flex-col gap-6">
-              {navLinks.map((link) => (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    className="block text-lg font-medium py-2"
-                    onClick={() => setMobileMenuOpen(false)}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div 
+            className="fixed inset-0 top-[65px] z-50 bg-background/95 backdrop-blur-md md:hidden"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "100vh" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+          >
+            <nav className="container py-8">
+              <ul className="flex flex-col gap-6">
+                {navLinks.map((link, index) => (
+                  <motion.li 
+                    key={link.href}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.1 * index }}
                   >
-                    {link.title}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </div>
-      )}
+                    <a
+                      href={link.href}
+                      className="block text-lg font-medium py-2"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      {link.title}
+                    </a>
+                  </motion.li>
+                ))}
+              </ul>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

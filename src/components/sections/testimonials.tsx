@@ -1,13 +1,6 @@
+
 import { MessageSquare, Linkedin } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { Card, CardContent } from "@/components/ui/card";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
+import { motion } from "framer-motion";
 import { resumeData } from "@/utils/resume-data";
 
 interface Testimonial {
@@ -68,6 +61,7 @@ export function TestimonialsSection() {
                 had the pleasure to work with.
               </p>
             </div>
+            
             <div className="flex items-center gap-2">
               <a
                 href={resumeData.linkedin}
@@ -82,33 +76,45 @@ export function TestimonialsSection() {
           </div>
         </div>
 
-        {/* <Carousel className="w-full">
-          <CarouselContent className="-ml-2 md:-ml-4">
-            {testimonialData.map((testimonial) => (
-              <CarouselItem key={testimonial.id} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
-                <TestimonialCard testimonial={testimonial} />
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <div className="flex justify-center gap-2 mt-8">
-            <CarouselPrevious />
-            <CarouselNext />
-          </div>
-        </Carousel> */}
+        {/* Aceternity-inspired testimonial carousel */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {testimonialData.map((testimonial, index) => (
+            <TestimonialCard 
+              key={testimonial.id} 
+              testimonial={testimonial} 
+              index={index}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );
 }
 
-function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
+function TestimonialCard({ testimonial, index }: { testimonial: Testimonial; index: number }) {
   return (
-    <Card className="h-full bg-card/50 backdrop-blur-sm border shadow-sm">
-      <CardContent className="p-6">
-        <div className="mb-4 text-lg italic text-muted-foreground">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ 
+        duration: 0.5, 
+        delay: index * 0.2,
+        type: "spring",
+        stiffness: 100 
+      }}
+      className="h-full"
+    >
+      <div className="bg-card/50 backdrop-blur-sm border shadow-sm rounded-xl p-6 h-full flex flex-col">
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3 + index * 0.2 }}
+          className="mb-4 text-lg italic text-muted-foreground"
+        >
           "{testimonial.text}"
-        </div>
+        </motion.div>
 
-        <div className="pt-4 border-t border-border">
+        <div className="pt-4 border-t border-border mt-auto">
           <p className="font-semibold">{testimonial.name}</p>
           <p className="text-sm text-primary">
             {testimonial.position}, {testimonial.company}
@@ -117,7 +123,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
             {testimonial.relationship}
           </p>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </motion.div>
   );
 }
