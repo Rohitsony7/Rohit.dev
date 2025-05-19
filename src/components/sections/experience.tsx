@@ -2,12 +2,13 @@
 import { useState, useRef } from "react";
 import { Calendar, Briefcase, ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Motion, AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { resumeData } from "@/utils/resume-data";
 import { CardHoverEffect } from "../ui/card-hover";
 import { SparklesCore } from "../ui/sparkles";
 import { TextGenerateEffect } from "../ui/text-generate-effect";
 import { HoverEffect } from "../ui/card-hover-effect";
+import { Meteors } from "../ui/meteors";
 
 interface Experience {
   id: number;
@@ -38,6 +39,9 @@ export function ExperienceSection() {
         />
       </div>
       
+      {/* Floating meteors effect */}
+      <Meteors number={10} className="opacity-30" />
+      
       <div className="container px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto relative z-10">
         <div className="mb-12 md:mb-16">
           <motion.div 
@@ -58,7 +62,7 @@ export function ExperienceSection() {
             viewport={{ once: true }}
             className="text-3xl md:text-5xl font-bold tracking-tight mb-4"
           >
-            <TextGenerateEffect words={`My Professional Journey`} />
+            <TextGenerateEffect words="My Professional Journey" />
           </motion.h2>
           
           <motion.p 

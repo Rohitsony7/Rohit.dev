@@ -61,3 +61,41 @@ export const CardHover = ({
     </div>
   );
 };
+
+export const CardHoverEffect = ({
+  className,
+  children,
+  onMouseEnter,
+  onMouseLeave,
+}: {
+  className?: string;
+  children: React.ReactNode;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
+}) => {
+  const [isHovered, setIsHovered] = useState(false);
+  
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+    if (onMouseEnter) onMouseEnter();
+  };
+  
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    if (onMouseLeave) onMouseLeave();
+  };
+
+  return (
+    <div
+      className={cn(
+        "transition-all duration-300 ease-out transform",
+        isHovered && "translate-y-[-5px] shadow-xl",
+        className
+      )}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      {children}
+    </div>
+  );
+};
