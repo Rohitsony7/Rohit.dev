@@ -106,13 +106,14 @@ export function ResumeDialog({ open, onOpenChange }: ResumeDialogProps) {
             className="border rounded-lg shadow-xl overflow-hidden bg-white/5 backdrop-blur-sm h-full flex justify-center"
             style={{ minHeight: "70vh" }}
           >
-            <Worker
-              workerUrl={`https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js`}
-            >
-              <Viewer
-                fileUrl={resumePath}
-                plugins={[defaultLayoutPluginInstance]}
-              />
+            <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
+              <div style={{ height: '100%', width: '100%', maxHeight: '70vh', display: 'flex' }}>
+                <Viewer
+                  fileUrl={resumePath}
+                  plugins={[defaultLayoutPluginInstance]}
+                  defaultScale={1.0}
+                />
+              </div>
             </Worker>
           </motion.div>
         </div>
