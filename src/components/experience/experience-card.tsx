@@ -50,6 +50,7 @@ export function ExperienceCard({ experience }: { experience: Experience }) {
       <div className="flex flex-wrap gap-2 items-start justify-between mb-3 relative">
         <motion.h3 
           className="text-xl font-bold"
+          initial={{ color: "hsl(var(--foreground))" }}
           animate={{ color: isHovered ? "hsl(var(--primary))" : "hsl(var(--foreground))" }}
           transition={{ duration: 0.2 }}
         >

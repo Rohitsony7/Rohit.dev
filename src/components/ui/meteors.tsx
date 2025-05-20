@@ -23,6 +23,7 @@ export const Meteors = ({ number = 20, className }: MeteorsProps) => {
     top: Math.floor(Math.random() * 100) + "vh",
     left: Math.floor(Math.random() * 100) + "vw",
     delay: Math.random() * 20 + "s",
+    duration: Math.random() * 8 + 2 + "s",
   }));
 
   return (
@@ -30,7 +31,7 @@ export const Meteors = ({ number = 20, className }: MeteorsProps) => {
       {mounted && meteors.map((meteor) => (
         <span
           key={meteor.id}
-          className="animate-meteor absolute pointer-events-none rounded-full bg-slate-500 rotate-[215deg]"
+          className="absolute pointer-events-none rounded-full bg-slate-500 rotate-[215deg]"
           style={{
             top: meteor.top,
             left: meteor.left,
@@ -38,6 +39,8 @@ export const Meteors = ({ number = 20, className }: MeteorsProps) => {
             height: meteor.size,
             opacity: meteor.opacity,
             animationDelay: meteor.delay,
+            animationDuration: meteor.duration,
+            animation: "meteor linear infinite",
             boxShadow: `0 0 ${parseInt(meteor.size) * 2}px ${parseInt(meteor.size) / 2}px rgba(255,255,255,0.4)`,
           }}
         />

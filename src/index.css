@@ -119,19 +119,19 @@
 
 @keyframes meteor {
   0% {
-    transform: translateY(0) translateX(0) rotate(215deg);
+    transform: rotate(215deg) translateX(0);
     opacity: 1;
   }
   70% {
     opacity: 1;
   }
   100% {
-    transform: translateY(1000px) translateX(1000px) rotate(215deg);
+    transform: rotate(215deg) translateX(1000px);
     opacity: 0;
   }
 }
 
-.meteor {
+.animate-meteor {
   animation: meteor 5s linear infinite;
 }
 
