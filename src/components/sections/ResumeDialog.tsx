@@ -1,4 +1,3 @@
-
 import React from "react";
 import { motion } from "framer-motion";
 import { Worker, Viewer } from "@react-pdf-viewer/core";
@@ -17,7 +16,7 @@ interface ResumeDialogProps {
 
 export function ResumeDialog({ open, onOpenChange }: ResumeDialogProps) {
   const defaultLayoutPluginInstance = defaultLayoutPlugin();
-  
+
   // Dynamically resolve the base URL
   const baseUrl = import.meta.env.BASE_URL || "/";
   const resumePath = `${baseUrl}resume.pdf`;
@@ -34,7 +33,7 @@ export function ResumeDialog({ open, onOpenChange }: ResumeDialogProps) {
 
   const handlePrint = () => {
     // Open PDF in a new tab for printing
-    const printWindow = window.open(resumePath, '_blank');
+    const printWindow = window.open(resumePath, "_blank");
     if (printWindow) {
       printWindow.onload = () => {
         printWindow.print();
@@ -46,77 +45,101 @@ export function ResumeDialog({ open, onOpenChange }: ResumeDialogProps) {
 
   return (
     <>
-      {/* Backdrop overlay with Aceternity-style blur effect */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        onClick={() => onOpenChange(false)}
-        className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50"
-      />
-      
-      {/* Dialog content with Aceternity-style animations and design */}
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.95 }}
-        transition={{ 
+        transition={{
           type: "spring",
           stiffness: 300,
-          damping: 30
+          damping: 30,
         }}
-        className="fixed left-1/2 top-1/2 z-50 w-[95vw] max-w-4xl max-h-[95vh] flex flex-col -translate-x-1/2 -translate-y-1/2 bg-background border rounded-xl shadow-xl overflow-hidden"
+        className="fixed inset-0 flex items-center justify-center z-50 bg-black/80 backdrop-blur-sm"
       >
-        {/* Header with Aceternity-style gradient border */}
-        <div className="flex flex-col space-y-1.5 p-6 border-b bg-gradient-to-b from-background to-background/80">
-          <div className="flex items-center justify-between">
-            <h2 className="text-lg font-semibold leading-none tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-600">Resume - {resumeData.name}</h2>
-            <motion.button 
-              onClick={() => onOpenChange(false)}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              className="rounded-full w-8 h-8 flex items-center justify-center bg-background/10 hover:bg-background/20 transition-colors"
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.95 }}
+          transition={{
+            type: "spring",
+            stiffness: 300,
+            damping: 30,
+          }}
+          className="w-[95vw] max-w-4xl max-h-[95vh] flex flex-col bg-background border rounded-xl shadow-xl overflow-hidden"
+        >
+          {/* Header Section */}
+          <div className="flex flex-col space-y-1.5 p-6 border-b bg-gradient-to-b from-background to-background/80 w-full">
+            <div className="flex items-center justify-between">
+              <h2 className="text-lg font-semibold leading-none tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-600">
+                Resume - {resumeData.name}
+              </h2>
+              <motion.button
+                onClick={() => onOpenChange(false)}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                className="rounded-full w-8 h-8 flex items-center justify-center bg-background/10 hover:bg-background/20 transition-colors"
+              >
+                <X className="h-4 w-4" />
+                <span className="sr-only">Close</span>
+              </motion.button>
+            </div>
+            <div className="flex items-center justify-end gap-2 pt-2">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <MutedButton
+                  onClick={handlePrint}
+                  className="flex items-center gap-2 hover:bg-gray-100/10 transition-colors"
+                >
+                  <Printer size={16} />
+                  Print
+                </MutedButton>
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Button
+                  onClick={handleDownload}
+                  className="flex items-center gap-2 bg-primary hover:bg-primary/90"
+                >
+                  <Download size={16} />
+                  Download
+                </Button>
+              </motion.div>
+            </div>
+          </div>
+
+          {/* Resume Section */}
+          <div className="flex-1 p-4 overflow-y-auto w-full">
+            <motion.div
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.2 }}
+              className="border rounded-lg shadow-xl overflow-hidden bg-white/5 backdrop-blur-sm h-full flex justify-center"
+              style={{ minHeight: "70vh" }}
             >
-              <X className="h-4 w-4" />
-              <span className="sr-only">Close</span>
-            </motion.button>
-          </div>
-          <div className="flex items-center justify-end gap-2 pt-2">
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <MutedButton onClick={handlePrint} className="flex items-center gap-2 hover:bg-gray-100/10 transition-colors">
-                <Printer size={16} />
-                Print
-              </MutedButton>
+              <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
+                <div
+                  style={{
+                    height: "100%",
+                    width: "100%",
+                    maxHeight: "70vh", // Restrict the height of the PDF viewer
+                    display: "flex",
+                    overflowY: "auto", // Enable vertical scrolling for the PDF viewer
+                  }}
+                >
+                  <Viewer
+                    fileUrl={resumePath}
+                    plugins={[defaultLayoutPluginInstance]}
+                    defaultScale={1.0}
+                  />
+                </div>
+              </Worker>
             </motion.div>
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button onClick={handleDownload} className="flex items-center gap-2 bg-primary hover:bg-primary/90">
-                <Download size={16} />
-                Download
-              </Button>
-            </motion.div>
           </div>
-        </div>
-        
-        {/* Scrollable content with Aceternity styling */}
-        <div className="flex-1 p-4 overflow-auto">
-          <motion.div 
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="border rounded-lg shadow-xl overflow-hidden bg-white/5 backdrop-blur-sm h-full flex justify-center"
-            style={{ minHeight: "70vh" }}
-          >
-            <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
-              <div style={{ height: '100%', width: '100%', maxHeight: '70vh', display: 'flex' }}>
-                <Viewer
-                  fileUrl={resumePath}
-                  plugins={[defaultLayoutPluginInstance]}
-                  defaultScale={1.0}
-                />
-              </div>
-            </Worker>
-          </motion.div>
-        </div>
+        </motion.div>
       </motion.div>
     </>
   );
