@@ -65,7 +65,7 @@ export function ResumeDialog({ open, onOpenChange }: ResumeDialogProps) {
           stiffness: 300,
           damping: 30
         }}
-        className="fixed left-[50%] top-[50%] z-50 w-[90vw] max-w-4xl max-h-[90vh] flex flex-col translate-x-[-50%] translate-y-[-50%] bg-background border rounded-xl shadow-xl overflow-hidden"
+        className="fixed left-1/2 top-1/2 z-50 w-[95vw] max-w-4xl max-h-[95vh] flex flex-col -translate-x-1/2 -translate-y-1/2 bg-background border rounded-xl shadow-xl overflow-hidden"
       >
         {/* Header with Aceternity-style gradient border */}
         <div className="flex flex-col space-y-1.5 p-6 border-b bg-gradient-to-b from-background to-background/80">
@@ -103,7 +103,7 @@ export function ResumeDialog({ open, onOpenChange }: ResumeDialogProps) {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className="border rounded-lg shadow-xl overflow-hidden bg-white/5 backdrop-blur-sm"
+            className="border rounded-lg shadow-xl overflow-hidden bg-white/5 backdrop-blur-sm h-full flex justify-center"
             style={{ minHeight: "70vh" }}
           >
             <Worker
