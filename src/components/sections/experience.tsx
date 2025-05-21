@@ -10,7 +10,7 @@ import { ExperienceTimeline } from "../experience/timeline";
 export function ExperienceSection() {
   return (
     <section id="experience" className="py-20 md:py-32 relative overflow-hidden">
-      {/* Background Sparkles */}
+      {/* Background effects */}
       <div className="absolute inset-0 w-full h-full">
         <SparklesCore
           id="experienceSparkles"
@@ -24,18 +24,24 @@ export function ExperienceSection() {
       </div>
       
       {/* Floating meteors effect */}
-      <Meteors number={10} className="opacity-30" />
+      <Meteors number={8} className="opacity-30" />
       
       <div className="container px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto relative z-10">
-        <div className="mb-12 md:mb-16">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+          viewport={{ once: true }}
+          className="mb-16 md:mb-24 text-center"
+        >
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
-            className="flex items-center gap-2 text-sm text-muted-foreground mb-4"
+            className="flex items-center gap-2 text-sm text-muted-foreground mb-4 justify-center"
           >
-            <Briefcase size={16} />
+            <Briefcase size={18} className="text-primary" />
             <span>Work Experience</span>
           </motion.div>
           
@@ -44,9 +50,9 @@ export function ExperienceSection() {
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
             viewport={{ once: true }}
-            className="text-3xl md:text-5xl font-bold tracking-tight mb-4"
+            className="text-3xl md:text-5xl font-bold tracking-tight mb-6 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent"
           >
-            <TextGenerateEffect words="My Professional Journey" />
+            <TextGenerateEffect words="My Professional Journey" className="inline" />
           </motion.h2>
           
           <motion.p 
@@ -54,12 +60,12 @@ export function ExperienceSection() {
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.3 }}
             viewport={{ once: true }}
-            className="text-muted-foreground max-w-2xl"
+            className="text-muted-foreground max-w-2xl mx-auto"
           >
-            Over the past {resumeData.totalExperience}, I've had the opportunity
-            to work with amazing teams and contribute to impactful projects.
+            Over the past <span className="text-primary font-medium">{resumeData.totalExperience}</span>, I've collaborated 
+            with exceptional teams and contributed to impactful projects across various domains.
           </motion.p>
-        </div>
+        </motion.div>
         
         <ExperienceTimeline experiences={resumeData.experience} />
       </div>
