@@ -67,11 +67,13 @@ export const CardHoverEffect = ({
   children,
   onMouseEnter,
   onMouseLeave,
+  onClick,
 }: {
   className?: string;
   children: React.ReactNode;
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
+  onClick?: () => void;
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   
@@ -85,6 +87,10 @@ export const CardHoverEffect = ({
     if (onMouseLeave) onMouseLeave();
   };
 
+  const handleClick = () => {
+    if (onClick) onClick();
+  };
+
   return (
     <div
       className={cn(
@@ -94,6 +100,7 @@ export const CardHoverEffect = ({
       )}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onClick={handleClick}
     >
       {children}
     </div>
