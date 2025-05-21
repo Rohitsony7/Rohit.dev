@@ -18,7 +18,6 @@ interface Experience {
 
 export function ExperienceCard({ experience }: { experience: Experience }) {
   const [isHovered, setIsHovered] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(false);
   
   // Animation variants for list items
   const containerVariants = {
@@ -40,19 +39,17 @@ export function ExperienceCard({ experience }: { experience: Experience }) {
     <CardHoverEffect
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      onClick={() => setIsExpanded(!isExpanded)}
       className={cn(
         experience.current 
           ? "border-primary shadow-lg shadow-primary/10" 
           : "border-border",
-        "p-6 rounded-xl border backdrop-blur-sm relative overflow-hidden group cursor-pointer transition-all duration-300",
-        isExpanded ? "md:scale-105 z-10" : ""
+        "p-6 rounded-xl border backdrop-blur-sm relative overflow-hidden group cursor-pointer transition-all duration-300"
       )}
     >
       {/* Animated background effect */}
       <motion.div 
         initial={{ opacity: 0 }}
-        animate={{ opacity: isHovered || isExpanded ? 0.15 : 0 }}
+        animate={{ opacity: isHovered ? 0.15 : 0 }}
         className={cn(
           "absolute inset-0 bg-gradient-to-tr transition-opacity duration-500",
           experience.current 
@@ -72,7 +69,7 @@ export function ExperienceCard({ experience }: { experience: Experience }) {
       <div className="flex flex-wrap gap-2 items-start justify-between mb-3 relative">
         <motion.h3 
           className="text-xl font-bold"
-          animate={{ color: isHovered || isExpanded ? "hsl(var(--primary))" : "hsl(var(--foreground))" }}
+          animate={{ color: isHovered ? "hsl(var(--primary))" : "hsl(var(--foreground))" }}
           transition={{ duration: 0.2 }}
         >
           {experience.title}
@@ -111,11 +108,11 @@ export function ExperienceCard({ experience }: { experience: Experience }) {
         )}
       </div>
 
-      {/* Description list */}
+      {/* Description list - always visible now */}
       <motion.ul
         variants={containerVariants}
         initial="hidden"
-        animate={isExpanded ? "show" : "hidden"}
+        animate="show"
         className="space-y-2 mb-4 relative"
       >
         {experience.description.map((item, i) => (
@@ -164,18 +161,6 @@ export function ExperienceCard({ experience }: { experience: Experience }) {
             {tech}
           </motion.span>
         ))}
-      </motion.div>
-      
-      {/* Expand button indicator */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 0.7 }}
-        whileHover={{ opacity: 1 }}
-        className="mt-4 flex justify-center"
-      >
-        <button className="text-xs text-muted-foreground">
-          {isExpanded ? "Show less" : "Show more"}
-        </button>
       </motion.div>
     </CardHoverEffect>
   );
