@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { Download } from "lucide-react";
@@ -6,7 +5,13 @@ import { resumeData } from "../../utils/resume-data";
 import { ResumeDialog } from "./ResumeDialog";
 
 // Aceternity-inspired components
-const Spotlight = ({ className, children }: { className?: string, children: React.ReactNode }) => {
+const Spotlight = ({
+  className,
+  children,
+}: {
+  className?: string;
+  children: React.ReactNode;
+}) => {
   return (
     <div className={`relative w-full max-w-6xl mx-auto ${className}`}>
       <div className="absolute inset-0 overflow-hidden">
@@ -39,14 +44,14 @@ const Meteors = ({ number }: { number: number }) => {
   );
 };
 
-const ShimmerButton = ({ 
-  children, 
-  className = "", 
-  onClick 
-}: { 
-  children: React.ReactNode, 
-  className?: string, 
-  onClick?: () => void 
+const ShimmerButton = ({
+  children,
+  className = "",
+  onClick,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  onClick?: () => void;
 }) => {
   return (
     <motion.button
@@ -56,15 +61,18 @@ const ShimmerButton = ({
       className={`relative inline-flex h-12 overflow-hidden rounded-full px-6 py-2 border border-primary/20 bg-background shadow-md hover:shadow-xl transition-all duration-300 ${className}`}
     >
       <span className="absolute inset-0 overflow-hidden rounded-full">
-        <span className="absolute inset-0 rounded-full bg-gradient-to-r from-primary/20 via-secondary/20 to-primary/20" 
+        <span
+          className="absolute inset-0 rounded-full bg-gradient-to-r from-primary/20 via-secondary/20 to-primary/20"
           style={{
             transform: "translateX(-100%)",
             animation: "shimmer 2s infinite",
-            backgroundSize: "200% 100%"
+            backgroundSize: "200% 100%",
           }}
         />
       </span>
-      <span className="relative z-10 flex items-center justify-center text-sm font-medium transition-colors">{children}</span>
+      <span className="relative z-10 flex items-center justify-center text-sm font-medium transition-colors">
+        {children}
+      </span>
     </motion.button>
   );
 };
@@ -77,7 +85,7 @@ export function HeroSection() {
       <Meteors number={15} />
       <Spotlight className="px-4 sm:px-6 lg:px-8 w-full pt-32 pb-16 md:py-32">
         <div className="flex flex-col items-center text-center">
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -86,7 +94,7 @@ export function HeroSection() {
             Hello, I'm
           </motion.p>
 
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
@@ -95,7 +103,7 @@ export function HeroSection() {
             {resumeData.name}
           </motion.h1>
 
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.4 }}
@@ -104,7 +112,7 @@ export function HeroSection() {
             <TypewriterEffect />
           </motion.div>
 
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.6 }}
@@ -113,22 +121,28 @@ export function HeroSection() {
             {resumeData.bio}
           </motion.p>
 
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.8 }}
             className="flex flex-wrap gap-4 justify-center"
           >
-            <ShimmerButton onClick={() => window.open(resumeData.github, "_blank")}>
+            <ShimmerButton
+              onClick={() => window.open(resumeData.github, "_blank")}
+            >
               View GitHub
             </ShimmerButton>
-            <ShimmerButton 
+            <ShimmerButton
               className="bg-secondary text-secondary-foreground"
-              onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+              onClick={() =>
+                document
+                  .getElementById("contact")
+                  ?.scrollIntoView({ behavior: "smooth" })
+              }
             >
               Contact Me
             </ShimmerButton>
-            <ShimmerButton 
+            <ShimmerButton
               onClick={() => setShowResumeDialog(true)}
               className="flex items-center gap-2"
             >
@@ -137,15 +151,29 @@ export function HeroSection() {
             </ShimmerButton>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.2 }}
             className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce"
           >
-            <a href="#about" className="text-muted-foreground hover:text-foreground transition-colors">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            <a
+              href="#about"
+              className="text-muted-foreground hover:text-foreground transition-colors"
+            >
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                />
               </svg>
             </a>
           </motion.div>
@@ -153,7 +181,12 @@ export function HeroSection() {
       </Spotlight>
 
       {/* Resume Dialog */}
-      {showResumeDialog && <ResumeDialog open={showResumeDialog} onOpenChange={setShowResumeDialog} />}
+      {showResumeDialog && (
+        <ResumeDialog
+          open={showResumeDialog}
+          onOpenChange={setShowResumeDialog}
+        />
+      )}
     </section>
   );
 }
