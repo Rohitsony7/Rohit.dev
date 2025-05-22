@@ -16,7 +16,7 @@ const Spotlight = ({
   return (
     <div className={`relative w-full max-w-6xl mx-auto ${className}`}>
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -inset-[100%] opacity-50 bg-gradient-to-r from-primary/20 via-secondary/20 to-primary/20 blur-[100px] z-[-1]" />
+        {/* Removed the background gradient element */}
       </div>
       {children}
     </div>
