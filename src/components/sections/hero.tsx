@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Download } from "lucide-react";
 import { resumeData } from "../../utils/resume-data";
 import { ResumeDialog } from "./ResumeDialog";
+import { Meteors } from "@/components/ui/meteors";
 
 // Aceternity-inspired components
 const Spotlight = ({
@@ -19,28 +20,6 @@ const Spotlight = ({
       </div>
       {children}
     </div>
-  );
-};
-
-const Meteors = ({ number }: { number: number }) => {
-  const meteors = new Array(number || 20).fill(true);
-
-  return (
-    <>
-      {meteors.map((_, idx) => (
-        <span
-          key={idx}
-          className={`absolute top-1/2 left-1/2 h-0.5 w-0.5 rotate-[215deg] rounded-[9999px] bg-white shadow-[0_0_0_1px_rgba(255,255,255,0.1)]
-            before:absolute before:top-1/2 before:left-1/2 before:h-[1px] before:w-[50px] before:-translate-y-1/2 before:-translate-x-[70%] before:bg-gradient-to-r before:from-[rgba(255,255,255,0.01)] before:to-[rgba(255,255,255,0.5)]`}
-          style={{
-            top: Math.floor(Math.random() * 100) + "%",
-            left: Math.floor(Math.random() * 100) + "%",
-            animationDelay: Math.random() * 2 + "s",
-            animationDuration: Math.floor(Math.random() * 8 + 2) + "s",
-          }}
-        />
-      ))}
-    </>
   );
 };
 
