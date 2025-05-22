@@ -32,5 +32,10 @@ export default defineConfig(({ mode }) => ({
         }
       }
     }
+  },
+  // Add environment variables to control Puppeteer
+  define: {
+    'process.env.PUPPETEER_SKIP_DOWNLOAD': JSON.stringify('true'),
+    'process.env.PUPPETEER_SKIP_CHROMIUM_DOWNLOAD': JSON.stringify('true'),
   }
 }));
