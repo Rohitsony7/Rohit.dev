@@ -44,7 +44,7 @@ export function ExperienceTimeline({ experiences }: TimelineProps) {
         ))}
       </div>
       
-      {/* Start indicator */}
+      {/* Start indicator - Fixed positioning to be centered under the timeline */}
       <motion.div 
         initial={{ opacity: 0, scale: 0 }}
         whileInView={{ opacity: 1, scale: 1 }}
@@ -55,7 +55,7 @@ export function ExperienceTimeline({ experiences }: TimelineProps) {
           delay: 1.5 
         }}
         viewport={{ once: true }}
-        className="absolute bottom-0 left-0 md:left-1/2 transform md:-translate-x-1/2 flex flex-col items-center"
+        className="absolute bottom-[-40px] left-0 md:left-1/2 transform md:-translate-x-1/2 flex flex-col items-center"
       >
         <div className="w-5 h-5 rounded-full bg-primary shadow-lg shadow-primary/50 animate-pulse" />
         <div className="text-xs md:text-sm text-muted-foreground mt-2 font-medium">Career Start</div>
