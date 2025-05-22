@@ -19,7 +19,7 @@ interface TimelineProps {
 
 export function ExperienceTimeline({ experiences }: TimelineProps) {
   return (
-    <div className="relative mt-16">
+    <div className="relative mt-16 mb-16">
       {/* Timeline line with animated gradient */}
       <div className="absolute left-0 md:left-1/2 top-0 h-full transform md:-translate-x-1/2">
         <motion.div 
@@ -55,7 +55,7 @@ export function ExperienceTimeline({ experiences }: TimelineProps) {
           delay: 0.5 
         }}
         viewport={{ once: true }}
-        className="absolute bottom-[-40px] left-0 md:left-1/2 transform md:-translate-x-1/2 flex flex-col items-center"
+        className="absolute bottom-0 left-0 md:left-1/2 transform md:-translate-x-1/2 flex flex-col items-center translate-y-10"
       >
         <div className="w-5 h-5 rounded-full bg-primary shadow-lg shadow-primary/50 animate-pulse" />
         <div className="text-xs md:text-sm text-muted-foreground mt-2 font-medium">Career Start</div>
