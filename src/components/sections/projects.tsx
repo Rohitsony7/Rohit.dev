@@ -1,9 +1,8 @@
-
-import { useEffect, useState } from 'react';
-import { Briefcase, ExternalLink, Github, Loader2 } from 'lucide-react';
-import { motion } from 'framer-motion';
-import { Button } from '../ui/button';
-import { toast } from '@/hooks/use-toast';
+import { useEffect, useState } from "react";
+import { Briefcase, ExternalLink, Github, Loader2 } from "lucide-react";
+import { motion } from "framer-motion";
+import { Button } from "../ui/button";
+import { toast } from "@/hooks/use-toast";
 
 interface Repository {
   id: number;
@@ -23,30 +22,35 @@ export function ProjectsSection() {
   const [projects, setProjects] = useState<Repository[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [activeFilter, setActiveFilter] = useState<string>('all');
-  
+  const [activeFilter, setActiveFilter] = useState<string>("all");
+
   useEffect(() => {
     const fetchProjects = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch('https://api.github.com/users/Rohitsony7/repos?sort=updated&per_page=12');
-        
+        const response = await fetch(
+          "https://api.github.com/users/Rohitsony7/repos?sort=updated&per_page=12"
+        );
+
         if (!response.ok) {
-          throw new Error('Failed to fetch projects');
+          throw new Error("Failed to fetch projects");
         }
-        
+
         const data: Repository[] = await response.json();
-        
+
         // Filter out forked repositories and sort by stars
         const filteredProjects = data
-          .filter(repo => !repo.name.includes('leetcode') && !repo.name.includes('clone'))
+          .filter(
+            (repo) =>
+              !repo.name.includes("leetcode") && !repo.name.includes("clone")
+          )
           .sort((a, b) => b.stargazers_count - a.stargazers_count);
-        
+
         setProjects(filteredProjects);
         setError(null);
       } catch (err) {
-        console.error('Error fetching GitHub projects:', err);
-        setError('Failed to load projects. Please try again later.');
+        console.error("Error fetching GitHub projects:", err);
+        setError("Failed to load projects. Please try again later.");
         toast({
           title: "Error",
           description: "Failed to fetch projects from GitHub",
@@ -59,32 +63,38 @@ export function ProjectsSection() {
 
     fetchProjects();
   }, []);
-  
+
   const getLanguageClass = (language: string | null) => {
     const languageColors: Record<string, string> = {
-      JavaScript: 'bg-yellow-500',
-      TypeScript: 'bg-blue-500',
-      HTML: 'bg-red-500',
-      CSS: 'bg-purple-500',
-      Python: 'bg-green-500',
+      JavaScript: "bg-yellow-500",
+      TypeScript: "bg-blue-500",
+      HTML: "bg-red-500",
+      CSS: "bg-purple-500",
+      Python: "bg-green-500",
       // Add more as needed
     };
-    
-    return languageColors[language || ''] || 'bg-gray-500';
+
+    return languageColors[language || ""] || "bg-gray-500";
   };
-  
-  const filteredProjects = activeFilter === 'all' 
-    ? projects 
-    : projects.filter(project => 
-        project.language === activeFilter || 
-        (project.topics && project.topics.includes(activeFilter.toLowerCase()))
-      );
-  
+
+  const filteredProjects =
+    activeFilter === "all"
+      ? projects
+      : projects.filter(
+          (project) =>
+            project.language === activeFilter ||
+            (project.topics &&
+              project.topics.includes(activeFilter.toLowerCase()))
+        );
+
   // Get unique languages for filtering
-  const languages = ['all', ...Array.from(new Set(projects.map(p => p.language).filter(Boolean)))];
+  const languages = [
+    "all",
+    ...Array.from(new Set(projects.map((p) => p.language).filter(Boolean))),
+  ];
 
   return (
-    <section id="projects" className="py-20 md:py-32 bg-secondary/30">
+    <section id="projects" className="py-20 md:py-32 bg-secondary/30 mb-16">
       <div className="container px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
         <div className="mb-12 md:mb-16">
           <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
@@ -97,13 +107,14 @@ export function ProjectsSection() {
                 Recent Work
               </h2>
               <p className="text-muted-foreground max-w-2xl">
-                Explore my projects from GitHub, showcasing my skills and expertise as a frontend engineer.
+                Explore my projects from GitHub, showcasing my skills and
+                expertise as a frontend engineer.
               </p>
             </div>
-            
-            <a 
-              href="https://github.com/Rohitsony7" 
-              target="_blank" 
+
+            <a
+              href="https://github.com/Rohitsony7"
+              target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
             >
@@ -111,7 +122,7 @@ export function ProjectsSection() {
             </a>
           </div>
         </div>
-        
+
         {/* Filters */}
         <div className="flex flex-wrap gap-2 mb-8">
           {languages.map((language) => (
@@ -126,7 +137,7 @@ export function ProjectsSection() {
             </Button>
           ))}
         </div>
-        
+
         {isLoading ? (
           <div className="flex justify-center items-center py-20">
             <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
@@ -134,10 +145,7 @@ export function ProjectsSection() {
         ) : error ? (
           <div className="text-center py-12">
             <p className="text-muted-foreground">{error}</p>
-            <Button
-              onClick={() => window.location.reload()}
-              className="mt-4"
-            >
+            <Button onClick={() => window.location.reload()} className="mt-4">
               Try Again
             </Button>
           </div>
@@ -157,14 +165,14 @@ export function ProjectsSection() {
 function ProjectCard({ project }: { project: Repository }) {
   const getLanguageClass = (language: string | null) => {
     const languageColors: Record<string, string> = {
-      JavaScript: 'bg-yellow-500',
-      TypeScript: 'bg-blue-500',
-      HTML: 'bg-red-500',
-      CSS: 'bg-purple-500',
-      Python: 'bg-green-500',
+      JavaScript: "bg-yellow-500",
+      TypeScript: "bg-blue-500",
+      HTML: "bg-red-500",
+      CSS: "bg-purple-500",
+      Python: "bg-green-500",
     };
-    
-    return languageColors[language || ''] || 'bg-gray-500';
+
+    return languageColors[language || ""] || "bg-gray-500";
   };
 
   return (
@@ -172,10 +180,10 @@ function ProjectCard({ project }: { project: Repository }) {
       whileHover={{ scale: 1.02, y: -5 }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ 
+      transition={{
         duration: 0.3,
-        type: 'spring',
-        stiffness: 300
+        type: "spring",
+        stiffness: 300,
       }}
       className="rounded-xl border bg-card/50 backdrop-blur-sm overflow-hidden h-full"
     >
@@ -183,12 +191,14 @@ function ProjectCard({ project }: { project: Repository }) {
         <div className="mb-4 flex justify-between items-start">
           <div>
             <h3 className="text-xl font-semibold mb-2 capitalize">
-              {project.name.replace(/-/g, ' ')}
+              {project.name.replace(/-/g, " ")}
             </h3>
             {project.language && (
               <div className="flex items-center gap-2">
-                <span 
-                  className={`w-3 h-3 rounded-full ${getLanguageClass(project.language)}`}
+                <span
+                  className={`w-3 h-3 rounded-full ${getLanguageClass(
+                    project.language
+                  )}`}
                 />
                 <span className="text-xs text-muted-foreground">
                   {project.language}
@@ -214,43 +224,45 @@ function ProjectCard({ project }: { project: Repository }) {
             </svg>
           </div>
         </div>
-        
+
         <p className="text-sm text-muted-foreground mb-6 flex-grow">
-          {project.description || `A ${project.language || 'code'} project by Rohit.`}
+          {project.description ||
+            `A ${project.language || "code"} project by Rohit.`}
         </p>
-        
+
         <div className="flex flex-wrap gap-2 mb-6">
-          {project.topics && project.topics.slice(0, 3).map((topic) => (
-            <span
-              key={topic}
-              className="px-2 py-1 text-xs rounded-full bg-secondary text-secondary-foreground"
-            >
-              {topic}
-            </span>
-          ))}
+          {project.topics &&
+            project.topics.slice(0, 3).map((topic) => (
+              <span
+                key={topic}
+                className="px-2 py-1 text-xs rounded-full bg-secondary text-secondary-foreground"
+              >
+                {topic}
+              </span>
+            ))}
           {project.topics && project.topics.length > 3 && (
             <span className="px-2 py-1 text-xs rounded-full bg-secondary/50 text-secondary-foreground">
               +{project.topics.length - 3}
             </span>
           )}
         </div>
-        
+
         <div className="flex gap-3 mt-auto">
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => window.open(project.html_url, '_blank')}
+            onClick={() => window.open(project.html_url, "_blank")}
             className="flex-1 flex items-center justify-center gap-2 py-2 rounded-md bg-secondary text-secondary-foreground transition-colors hover:bg-secondary/80"
           >
             <Github className="h-4 w-4" />
             <span>GitHub</span>
           </motion.button>
-          
+
           {project.homepage && (
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => window.open(project.homepage, '_blank')}
+              onClick={() => window.open(project.homepage, "_blank")}
               className="flex-1 flex items-center justify-center gap-2 py-2 rounded-md bg-gradient-to-r from-primary/80 to-purple-600/80 text-primary-foreground hover:from-primary hover:to-purple-600 transition-all"
             >
               <ExternalLink className="h-4 w-4" />

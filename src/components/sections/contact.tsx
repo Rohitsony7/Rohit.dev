@@ -47,7 +47,7 @@ export function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-20 md:py-32 relative">
+    <section id="contact" className="pt-0 pb-20 md:pb-32 relative">
       <Spotlight className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
           <div className="lg:w-1/2">
@@ -65,7 +65,7 @@ export function ContactSection() {
 
               <p className="text-muted-foreground mb-8">
                 Have a project in mind? Feel free to reach out. I'm always open
-                to discussing new projects, creative ideas or opportunities to
+                to discussing new projects, creative ideas, or opportunities to
                 be part of your vision.
               </p>
 

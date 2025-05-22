@@ -1,4 +1,3 @@
-
 import { MessageSquare, Linkedin } from "lucide-react";
 import { motion } from "framer-motion";
 import { resumeData } from "@/utils/resume-data";
@@ -41,27 +40,25 @@ const testimonials: Testimonial[] = [
 ];
 
 export function TestimonialsSection() {
-  const testimonialData = testimonials;
-
   return (
-    <section id="testimonials" className="py-20 md:py-32">
+    <section id="testimonials" className="py-12 md:py-16">
       <div className="container px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
-        <div className="mb-12 md:mb-16">
+        <div className="mb-8 md:mb-12">
           <div className="flex items-center justify-between">
             <div>
-              <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
+              <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
                 <MessageSquare size={16} />
                 <span>Testimonials</span>
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-gradient mb-4">
+              <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-gradient mb-2">
                 What People Say
               </h2>
-              <p className="text-muted-foreground max-w-2xl">
+              <p className="text-muted-foreground max-w-xl">
                 Recommendations from colleagues, clients, and managers who I've
                 had the pleasure to work with.
               </p>
             </div>
-            
+
             <div className="flex items-center gap-2">
               <a
                 href={resumeData.linkedin}
@@ -75,37 +72,32 @@ export function TestimonialsSection() {
             </div>
           </div>
         </div>
-
-        {/* Aceternity-inspired testimonial carousel */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {testimonialData.map((testimonial, index) => (
-            <TestimonialCard 
-              key={testimonial.id} 
-              testimonial={testimonial} 
-              index={index}
-            />
-          ))}
-        </div>
       </div>
     </section>
   );
 }
 
-function TestimonialCard({ testimonial, index }: { testimonial: Testimonial; index: number }) {
+function TestimonialCard({
+  testimonial,
+  index,
+}: {
+  testimonial: Testimonial;
+  index: number;
+}) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ 
-        duration: 0.5, 
+      transition={{
+        duration: 0.5,
         delay: index * 0.2,
         type: "spring",
-        stiffness: 100 
+        stiffness: 100,
       }}
       className="h-full"
     >
       <div className="bg-card/50 backdrop-blur-sm border shadow-sm rounded-xl p-6 h-full flex flex-col">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 + index * 0.2 }}
