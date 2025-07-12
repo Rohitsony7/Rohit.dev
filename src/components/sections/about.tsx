@@ -20,7 +20,7 @@ export function AboutSection() {
         bgClass: "from-blue-500/20 to-cyan-400/20",
       },
       {
-        title: "4+",
+        title: `${resumeData.experience.length}`,
         description: "Companies Worked With",
         bgClass: "from-purple-500/20 to-pink-500/20",
       },
@@ -30,7 +30,7 @@ export function AboutSection() {
         bgClass: "from-amber-400/20 to-orange-500/20",
       },
       {
-        title: "2",
+        title: `${resumeData.certificates.length}`,
         description: "Certifications",
         bgClass: "from-green-400/20 to-emerald-500/20",
       },
