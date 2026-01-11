@@ -9,7 +9,6 @@ import { toast } from "@/hooks/use-toast";
 export function ContactSection() {
   const [formData, setFormData] = useState({
     name: "",
-    email: "",
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -24,43 +23,35 @@ export function ContactSection() {
     }));
   };
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     try {
-      // Replace this with your backend endpoint or email service API
-      const response = await fetch("/api/send-email", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          message: formData.message,
-        }),
-      });
+      // Construct mailto link
+      const subject = `Contact form query from Rohit.dev`;
+      const body = `${formData.message}\n\nFrom: ${formData.name}`;
+      const mailtoLink = `mailto:Rsony.721@gmail.com?subject=${encodeURIComponent(
+        subject
+      )}&body=${encodeURIComponent(body)}`;
 
-      if (!response.ok) {
-        throw new Error("Failed to send email");
-      }
+      // Open email client
+      window.open(mailtoLink, "_blank");
 
       toast({
-        title: "Message sent",
-        description: "Thank you for your message. I'll get back to you soon!",
+        title: "Opening email client",
+        description: "Drafting an email to Rsony.721@gmail.com",
       });
 
       // Reset form
       setFormData({
         name: "",
-        email: "",
         message: "",
       });
     } catch (error) {
       toast({
         title: "Error",
-        description: "Failed to send your message. Please try again later.",
+        description: "Failed to open email client. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -161,7 +152,6 @@ export function ContactSection() {
               <h3 className="text-xl font-semibold mb-6">Get In Touch</h3>
 
               <div className="space-y-5">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <div className="space-y-2">
                     <label htmlFor="name" className="text-sm font-medium block">
                       Name
@@ -177,26 +167,6 @@ export function ContactSection() {
                       className="w-full px-4 py-2.5 rounded-md border bg-card text-sm focus:outline-none focus:ring-2 focus:ring-primary"
                     />
                   </div>
-
-                  <div className="space-y-2">
-                    <label
-                      htmlFor="email"
-                      className="text-sm font-medium block"
-                    >
-                      Email
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                      placeholder="you@example.com"
-                      className="w-full px-4 py-2.5 rounded-md border bg-card text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-                    />
-                  </div>
-                </div>
 
                 <div className="space-y-2">
                   <label

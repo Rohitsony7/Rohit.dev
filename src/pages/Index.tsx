@@ -10,40 +10,9 @@ import { ProjectsSection } from "@/components/sections/projects";
 import { SkillsSection } from "@/components/sections/skills";
 import { TestimonialsSection } from "@/components/sections/testimonials";
 import { useEffect, useState } from "react";
+import { UnifiedBackground } from "@/components/unified-background";
 import { motion } from "framer-motion";
 
-// Aceternity-inspired grid pattern
-const GridPattern = () => {
-  return (
-    <div className="absolute inset-0 -z-10 h-full w-full">
-      <div className="absolute h-full w-full bg-gradient-to-br from-background to-background/80">
-        <svg
-          className="absolute inset-0 h-full w-full stroke-primary/10 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
-          aria-hidden="true"
-        >
-          <defs>
-            <pattern
-              id="grid-pattern"
-              width="40"
-              height="40"
-              patternUnits="userSpaceOnUse"
-              x="50%"
-              y="0"
-              patternTransform="translate(0 0)"
-            >
-              <path
-                d="M.5 40V.5H40"
-                fill="none"
-                strokeDasharray="0 2 2"
-              />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#grid-pattern)" />
-        </svg>
-      </div>
-    </div>
-  );
-};
 
 // Custom cursor implementation
 const CustomCursor = () => {
@@ -111,7 +80,7 @@ const Index = () => {
   return (
     <div className="min-h-screen relative overflow-x-hidden">
       <CustomCursor />
-      <GridPattern />
+      <UnifiedBackground />
       <Navbar />
       <HeroSection />
       <AboutSection />
