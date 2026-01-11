@@ -38,6 +38,7 @@ export const resumeData = {
       description: [
         "Spearheading frontend development using Angular and Node.js in a modular Nx monorepo setup.",
         "Architected scalable modules like Explorer, Rules Engine, Dashboard, and Reports with reusable components.",
+        "Executed the upgrade of 3 Angular repositories and internal libraries from version 17 to 21, enhancing system performance and ensuring long-term maintainability.",
         "Improved performance and maintainability by optimizing Angular change detection, implementing lazy loading, and modularizing core services.",
         "Integrated LLM tools like Claude, ROO Code, and AI Studio to automate repetitive development tasks, accelerating delivery timelines.",
         "Maintained and scaled the internal JTM Component Library to enforce design consistency and reduce UI redundancy across teams.",
